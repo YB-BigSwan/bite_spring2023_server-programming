@@ -1,19 +1,41 @@
 package com.example.bookstore_swanson.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
 	private String title;
 	private String author;
 	private String publicationYear;
 	private String isbn;
 	private Double price;
-	
-	public Book (String title, String author, String publicationYear, String isbn, Double price) {
+
+	public Book(String title, String author, String publicationYear, String isbn, Double price) {
+		super();
 		this.title = title;
 		this.author = author;
 		this.publicationYear = publicationYear;
 		this.isbn = isbn;
 		this.price = price;
+	}
+	
+	public Book() {
+		
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -55,6 +77,5 @@ public class Book {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
 
 }
