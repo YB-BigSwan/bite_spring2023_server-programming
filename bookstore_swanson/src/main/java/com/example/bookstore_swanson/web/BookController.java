@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.bookstore_swanson.domain.Book;
 import com.example.bookstore_swanson.domain.BookstoreRepository;
+import com.example.bookstore_swanson.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 	
 	@Autowired
 	private BookstoreRepository repository;
+	
+	@Autowired
+	private CategoryRepository crepository;
 
 	@GetMapping("/booklist")
 	public String getBooks(Model model) {	
@@ -25,6 +29,7 @@ public class BookController {
 	@GetMapping("/add") 
 	public String addBooks(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", crepository.findAll());
 		return "addbook";
 	}
 	
@@ -43,6 +48,7 @@ public class BookController {
 	@GetMapping("/edit/{id}")
 	public String editBook(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("book", repository.findById(id));
+		model.addAttribute("categories", crepository.findAll());
 		return "editbook";
 	}
 	

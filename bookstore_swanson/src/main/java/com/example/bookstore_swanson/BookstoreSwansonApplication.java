@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import com.example.bookstore_swanson.domain.Book;
 import com.example.bookstore_swanson.domain.BookstoreRepository;
+import com.example.bookstore_swanson.domain.Category;
+import com.example.bookstore_swanson.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreSwansonApplication {
@@ -16,15 +18,20 @@ public class BookstoreSwansonApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookstoreRepository repository) {
+	public CommandLineRunner demo(BookstoreRepository brepository, CategoryRepository crepository) {
 		return (args) -> {
-			Book one = new Book("Spare", "Prince Harry", "2023", "9781039003750", 20.50);
-			Book two = new Book("The House In The Pines", "Ana Reyes", "2023", "9780593186718", 17.80);
-			Book three = new Book("Atomic Habits", "James Clear", "2018", "9780735211292", 26.00);
 			
-			repository.save(one);
-			repository.save(two);
-			repository.save(three);
+			crepository.save(new Category("Biography"));
+			crepository.save(new Category("Thriller"));
+			crepository.save(new Category("Self-help"));
+			
+			Book one = new Book("Spare", "Prince Harry", "2023", "9781039003750", 20.50, crepository.findByName("Biography").get(0));
+			Book two = new Book("The House In The Pines", "Ana Reyes", "2023", "9780593186718", 17.80, crepository.findByName("Thriller").get(0));
+			Book three = new Book("Atomic Habits", "James Clear", "2018", "9780735211292", 26.00, crepository.findByName("Self-help").get(0));
+			
+			brepository.save(one);
+			brepository.save(two);
+			brepository.save(three);
 			
 		};
 	}
