@@ -9,6 +9,8 @@ xmlns:th="http://www.thymeleaf.org">
 	
 	<body>
 		<h1>Books</h1>
+		<h1>Welcome, <span th:text="${username}"></span></h1>
+		<a href="/login" class="btn btn-danger">Logout</a>
 		
 		<table class="table table-striped">
 			<tbody>
@@ -26,13 +28,12 @@ xmlns:th="http://www.thymeleaf.org">
 					<td th:text=${book.isbn}></td>
 					<td th:text="${book.price + ' €'}"></td>
 					<td th:text=${book.category.name}></td>
-					<td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${book.bookId})}">Delete</a></td>
-					<td><a th:href="@{/edit/{id}(id=${book.bookId})}">Edit</a></td>
+					<td><a class="btn btn-danger" th:if="${username == 'ADMIN'}" th:href="@{/delete/{id}(id=${book.bookId})}">Delete</a></td>
+					<td><a th:if="${username == 'ADMIN'}" th:href="@{/edit/{id}(id=${book.bookId})}">Edit</a></td>
 				</tr>
 			</tbody>
 		</table>
 		
-		<a href="/add" class="btn btn-success">Add Book</a>
-    
+		<a href="/add" th:if="${username == 'ADMIN'}" class="btn btn-success">Add Book</a>
 	</body>
 </html>

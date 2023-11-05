@@ -10,6 +10,9 @@ import com.example.bookstore_swanson.domain.BookstoreRepository;
 import com.example.bookstore_swanson.domain.Category;
 import com.example.bookstore_swanson.domain.CategoryRepository;
 
+import com.example.bookstore_swanson.domain.User;
+import com.example.bookstore_swanson.domain.UserRepository;
+
 @SpringBootApplication
 public class BookstoreSwansonApplication {
 
@@ -18,7 +21,7 @@ public class BookstoreSwansonApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookstoreRepository brepository, CategoryRepository crepository) {
+	public CommandLineRunner demo(BookstoreRepository brepository, CategoryRepository crepository, UserRepository urepository) {
 		return (args) -> {
 			
 			crepository.save(new Category("Biography"));
@@ -32,6 +35,9 @@ public class BookstoreSwansonApplication {
 			brepository.save(one);
 			brepository.save(two);
 			brepository.save(three);
+			
+			urepository.save(new User("user","$2a$12$K7SUnwVdX.n3.mmiIoSewePhC2w4dv15gLuMR9sFbNeicQ7BgYecK","email@gmail.com" ,"USER"));
+			urepository.save(new User("ADMIN", "$2a$12$K7SUnwVdX.n3.mmiIoSewePhC2w4dv15gLuMR9sFbNeicQ7BgYecK", "email@yahoo.com" ,"ADMIN"));
 			
 		};
 	}
